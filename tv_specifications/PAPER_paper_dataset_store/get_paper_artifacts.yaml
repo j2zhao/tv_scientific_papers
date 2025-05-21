@@ -1,0 +1,14 @@
+builder_type: CodeBuilder
+changed_columns: [download_success, paper_artifact]
+python_function: download_paper_pdf
+code_module: download_papers
+is_custom: true
+is_udf: true
+arguments:
+  paper_id: <<self.paperId[index]>>
+  paper_url: <<self.url[index]>>
+  category: <<self.Category_cleaned[index]>>
+  subcategory: <<self.Subcategory_cleaned[index]>>
+  artifact_folder: ~ARTIFACT_FOLDER~
+dtypes: 
+  artifact_name: artifact_string

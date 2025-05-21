@@ -1,0 +1,7 @@
+builder_type: GeneratorBuilder
+changed_columns: [Category,Subcategory,Journal,Journal_cleaned,Subcategory_cleaned,Category_cleaned]
+python_function: create_data_table_from_csv
+code_module: table_generation
+is_custom: false
+arguments:
+  folder_dir: ../data/journals.csv

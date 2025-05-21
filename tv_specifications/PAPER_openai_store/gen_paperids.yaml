@@ -1,0 +1,9 @@
+builder_type: GeneratorBuilder
+changed_columns: [paperId]
+python_function: gen_valid_paperids
+code_module: sample
+is_custom: true
+arguments:
+  selected_categories: <<paper_dataset_store.{paperId, download_success}>>
+  id_column: paperId
+  selection_column: download_success

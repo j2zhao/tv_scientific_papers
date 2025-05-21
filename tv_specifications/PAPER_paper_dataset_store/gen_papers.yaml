@@ -1,0 +1,10 @@
+builder_type: GeneratorBuilder
+changed_columns: [paperId,title, journal, url, year, type, Category_cleaned, Subcategory_cleaned]
+python_function: papers_from_sub_category
+code_module: scrape_papers
+is_custom: true
+arguments:
+  selected_categories: <<selected_fields>>
+  all_journals: <<google_scholar_journals>>
+  years: [2012, 2022]
+  semantic_key: # todo

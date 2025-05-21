@@ -105,13 +105,13 @@ def get_all_papers_in_journals(journals:list[tuple[str, str]],
             if paper['isOpenAccess'] and paper['openAccessPdf'] is not None:
                 open_access_url = paper['openAccessPdf']['url']
             else:
-                open_access_url = None
+                open_access_url = ""
             all_papers.append((paper['paperId'], paper['title'], cleaned_jname, open_access_url,  paper['year'], paper['publicationTypes']))
         time.sleep(1)
     df = pd.DataFrame(all_papers, columns=['paperId', 'title', 'journal', 'url', 'year', 'type'])
     return df
 
-def sub_category(selected_categories:pd.DataFrame, 
+def papers_from_sub_category(selected_categories:pd.DataFrame, 
                  all_journals:pd.DataFrame, 
                  years:Optional[list[int]], 
                  max_per_journal:Optional[int],
@@ -121,8 +121,8 @@ def sub_category(selected_categories:pd.DataFrame,
 
     all_papers = []
     for _, row in selected_categories.iterrows():
-        category = row['Category']
-        subcategory = row['Subcategory']
+        category = row['Category_cleaned']
+        subcategory = row['Subcategory_cleaned']
         for year in years:
             # if year is None:
             #     cat_folder = f'{category}_{subcategory}'
@@ -134,8 +134,8 @@ def sub_category(selected_categories:pd.DataFrame,
             journals = all_journals[(all_journals["Category_cleaned"] == category) & (all_journals["Subcategory_cleaned"] == subcategory)]
             journals_list = list(journals[['Journal', 'Journal_cleaned']].itertuples(index=False, name=None))
             df = get_all_papers_in_journals(journals_list, year, max_per_journal, semantic_key)
-            df["Category"] = category
-            df["Subcategory"] = subcategory
+            df["Category_cleaned"] = category
+            df["Subcategory_cleaned"] = subcategory
             all_papers.append(df)
     all_papers = pd.concat(all_papers, axis=1, ignore_index=True)
     return all_papers

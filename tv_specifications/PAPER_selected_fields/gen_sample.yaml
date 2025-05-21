@@ -1,0 +1,8 @@
+builder_type: GeneratorBuilder
+changed_columns: [Subcategory_cleaned,Category_cleaned]
+python_function: sample_sub_categories
+code_module: sample
+is_custom: true
+arguments:
+  df: <<google_scholar_journals>>
+  n: 3

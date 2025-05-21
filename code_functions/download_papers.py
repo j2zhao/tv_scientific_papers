@@ -31,16 +31,17 @@ def download_pdf(url: str, filepath: str, timeout: int = 30) -> bool:
     except Exception as e:
         return False
 
-def download_paper_pdf(paper_df: pd.DataFrame,
-                       self_df: pd.DataFrame,
+def download_paper_pdf(paper_id:str,
+                       paper_url: str,
+                       category: str,
+                       subcategory:str,
                        artifact_folder:str) -> None:
-
-    for _, paper, in paper_df.iterrows():
-        if paper['url'] is not None and paper['paperId'] not in self_df['paperId'].values:
-            file_path = os.path.join(artifact_folder, paper['Category'], paper['Subcategory']) 
-            os.makedirs(file_path)
-            file_path = os.path.join(file_path, f'{paper['paperId']}.pdf')
-            success = download_pdf(paper['url'], filepath = file_path)
-            new_row = [paper['paperId'], paper['title'], success, file_path]
-            self_df = pd.concat([self_df, new_row], ignore_index=True)
-    return self_df
+    if paper_url is None or paper_url == "":
+        return False, ""
+    file_path = os.path.join(artifact_folder, category, subcategory) 
+    os.makedirs(file_path)
+    file_path = os.path.join(file_path, f'{paper_id}.pdf')
+    success = download_pdf(paper_url, filepath = file_path)
+    if not success:
+        file_path == ""
+    return success, file_path
