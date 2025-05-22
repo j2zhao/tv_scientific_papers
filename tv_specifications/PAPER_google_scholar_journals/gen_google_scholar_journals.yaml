@@ -4,4 +4,4 @@ python_function: create_data_table_from_csv
 code_module: table_generation
 is_custom: false
 arguments:
-  folder_dir: ../data/journals.csv
+  csv_file_path: ./data/journals.csv
